@@ -9,6 +9,7 @@ public class App {
         int opcao;
 
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println("||                                                           ||");
         System.out.println("|| BEM VINDO AO BANCO DA PELADA, QUAL OPERACAO DESEJA FAZER? ||");
         System.out.println("|| 1° CRIAR NOVA CONTA                                       ||");
         System.out.println("|| 2° VER SALDO DE SUA CONTA                                 ||");
@@ -16,6 +17,7 @@ public class App {
         System.out.println("|| 4° SACAR DE SUA CONTA                                     ||");
         System.out.println("|| 5° TRANSFERIR PARA OUTRA CONTA                            ||");
         System.out.println("|| 0° SAIR DO BANCO                                          ||");
+        System.out.println("||                                                           ||");
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 
         do {
