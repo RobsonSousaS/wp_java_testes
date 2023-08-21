@@ -38,4 +38,8 @@ class Conta {
     public double getSaldo() {
         return saldo;
     }
-}
+
+
+    public String getnumeroConta(){
+        return  numeroConta;}
+    }
