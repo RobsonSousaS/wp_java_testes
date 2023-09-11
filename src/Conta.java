@@ -1,45 +1,68 @@
 class Conta {
-    private String nomeTitular;
+    private static int contadorId = 1;
+    private int id;
+    private Cliente cliente;
+    private double saldo;
     private String numeroConta;
     private String agencia;
-    private double saldo;
 
-    public Conta(String nomeTitular, String numeroConta, String agencia, double saldoInicial) {
-        this.nomeTitular = nomeTitular;
+    public Conta(int contadorIdConta, Cliente cliente, double saldo, String numeroConta, String agencia) {
+        this.id = contadorId++;
+        this.cliente = cliente;
+        this.saldo = saldo;
         this.numeroConta = numeroConta;
         this.agencia = agencia;
-        this.saldo = saldoInicial;
+    }
+    
+
+    public void setNumeroConta(String numeroConta) {
+        this.numeroConta = numeroConta;
     }
 
-    public void depositar(double valor) {
-        saldo += valor;
-        System.out.println("Depósito de R$" + valor + " realizado. Novo saldo: R$" + saldo);
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
     }
 
-    public void sacar(double valor) {
-        if (valor <= saldo) {
-            saldo -= valor;
-            System.out.println("Saque de R$" + valor + " realizado. Novo saldo: R$" + saldo);
-        } else {
-            System.out.println("Saldo insuficiente para saque.");
-        }
+    public int getId() {
+        return id;
     }
 
-    public void transferir(Conta destino, double valor) {
-        if (valor <= saldo) {
-            saldo -= valor;
-            destino.depositar(valor);
-            System.out.println("Transferência de R$" + valor + " realizada para a conta " + destino.numeroConta);
-        } else {
-            System.out.println("Saldo insuficiente para transferência.");
-        }
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public double getSaldo() {
         return saldo;
     }
 
-
-    public String getnumeroConta(){
-        return  numeroConta;}
+    public void depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+        }
     }
+
+    public boolean sacar(double valor) {
+        if (valor > 0 && saldo >= valor) {
+            saldo -= valor;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean transferir(Conta destino, double valor) {
+        if (sacar(valor)) {
+            destino.depositar(valor);
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Conta [ID: " + id + ", Cliente: " + cliente.getNome() + ", Saldo: " + saldo + ", Número da Conta: " + numeroConta + ", Agência: " + agencia + "]";
+    }
+
+
+    public int getContaId() {
+        return 0;
+    }
+}

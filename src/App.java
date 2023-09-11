@@ -2,124 +2,78 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
+        Banco banco = new Banco();
         Scanner scanner = new Scanner(System.in);
-        Conta c1 = new Conta("Titular 1", "12345", "Agencia A", 100.0);
-        Conta c2 = new Conta("Titular 2", "67890", "Agencia B", 0.0);
-        Conta novaConta = null;
 
-        int opcao;
+        while (true) {
+            System.out.println("|||||||||||||||||||||||||||||||");
+            System.out.println("||   Escolha uma opça1o:      ||");
+            System.out.println("||   1. Criar Cliente        ||");
+            System.out.println("||   2. Criar Conta          ||");
+            System.out.println("||   3. Depositar            ||");
+            System.out.println("||   4. Sacar                ||");
+            System.out.println("||   5. Transferir           ||");
+            System.out.println("||   6. Mostrar Saldo        ||");
+            System.out.println("||   7. Sair                 ||");
+            System.out.println("|||||||||||||||||||||||||||||||");
 
-        System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        System.out.println("||                                                           ||");
-        System.out.println("|| BEM VINDO AO BANCO DA PELADA, QUAL OPERACAO DESEJA FAZER? ||");
-        System.out.println("|| 1° CRIAR NOVA CONTA                                       ||");
-        System.out.println("|| 2° VER SALDO DE SUA CONTA                                 ||");
-        System.out.println("|| 3° DEPOSITAR EM SUA CONTA                                 ||");
-        System.out.println("|| 4° SACAR DE SUA CONTA                                     ||");
-        System.out.println("|| 5° TRANSFERIR PARA OUTRA CONTA                            ||");
-        System.out.println("|| 0° SAIR DO BANCO                                          ||");
-        System.out.println("||                                                           ||");
-        System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+            int choice = scanner.nextInt();
 
-        do {
-            System.out.println("selecione uma opcao:");
-
-            if (scanner.hasNextInt()) {
-                opcao = scanner.nextInt();
-
-                switch (opcao) {
-                    case 1:
-                        novaConta = criarNovaConta(scanner);
-                        break;
-                    case 2:
-                        System.out.println(c1.getSaldo());
-                        break;
-                    case 3:
-                        System.out.println("Digite o valor para depositar:");
-                        double valorDeposito = scanner.nextDouble();
-                        depositar(c1, valorDeposito);
-                        break;
-                    case 4:
-                        System.out.println("Digite o valor para sacar:");
-                        double valorSaque = scanner.nextDouble();
-                        sacar(c1, valorSaque);
-                        break;
-                    case 5:
-                    System.out.println("Digite o número da conta de origem:");
-                    String numeroOrigem = scanner.next();
-                    Conta origem = null;
-
-                    // Verificar se a conta de origem existe e atribuí-la à variável origem
-                    if (numeroOrigem.equals(c1.getnumeroConta())) {
-                        origem = c1;
-                    } else if (numeroOrigem.equals(c2.getnumeroConta())) {
-                        origem = c2;
-                    } else {
-                        System.out.println("Conta de origem não encontrada.");
-                        break;
-                    }
-
-                    System.out.println("Digite o número da conta de destino:");
-                    String numeroDestino = scanner.next();
-                    Conta destino = null;
-
-                    // Verificar se a conta de destino existe e atribuí-la à variável destino
-                    if (numeroDestino.equals(c1.getnumeroConta())) {
-                        destino = c1;
-                    } else if (numeroDestino.equals(c2.getnumeroConta())) {
-                        destino = c2;
-                    } else {
-                        System.out.println("Conta de destino não encontrada.");
-                        break;
-                    }
-
-                    System.out.println("Digite o valor para transferir:");
-                    double valorTransferencia = scanner.nextDouble();
-                    transferir(origem, destino, valorTransferencia);
+            switch (choice) {
+                case 1:
+                    System.out.println("Digite o nome do cliente:");
+                    String clientName = scanner.next();
+                    System.out.println("Digite o CPF do cliente:");
+                    String clientCpf = scanner.next();
+                    banco.criarCliente(clientName, clientCpf);
                     break;
-                    case 0:
-                        System.out.println("Saindo do banco. Obrigado!");
-                        break;
-                    default:
-                        System.out.println("Opcao invalida.");
-                }
-            } else {
-                System.out.println("Entrada inválida. Por favor, seleciona um opcao da nossa lista.");
-                scanner.next();
-                opcao = -1;
+                case 2:
+                    System.out.println("Digite o ID do cliente:");
+                    int clientId = scanner.nextInt();
+                    System.out.println("Digite o saldo inicial:");
+                    double initialBalance = scanner.nextDouble();
+                    System.out.println("Digite o número da conta:");
+                    String accountNumber = scanner.next();
+                    System.out.println("Digite o número da agência:");
+                    String agency = scanner.next();
+                    banco.criarConta(clientId, initialBalance, accountNumber, agency);
+                    break;
+                case 3:
+                    System.out.println("Digite o ID da conta:");
+                    int depositAccountId = scanner.nextInt();
+                    System.out.println("Digite o valor a ser depositado:");
+                    double depositAmount = scanner.nextDouble();
+                    banco.depositar(depositAccountId, depositAmount);
+                    break;
+                case 4:
+                    System.out.println("Digite o ID da conta:");
+                    int withdrawAccountId = scanner.nextInt();
+                    System.out.println("Digite o valor a ser sacado:");
+                    double withdrawAmount = scanner.nextDouble();
+                    banco.sacar(withdrawAccountId, withdrawAmount);
+                    break;
+                case 5:
+                    System.out.println("Digite o ID da conta de origem:");
+                    int sourceAccountId = scanner.nextInt();
+                    System.out.println("Digite o ID da conta de destino:");
+                    int targetAccountId = scanner.nextInt();
+                    System.out.println("Digite o valor a ser transferido:");
+                    double transferAmount = scanner.nextDouble();
+                    banco.transferir(sourceAccountId, targetAccountId, transferAmount);
+                    break;
+                case 6:
+                    System.out.println("Digite o ID da conta:");
+                    int balanceAccountId = scanner.nextInt();
+                    banco.mostrarSaldo(balanceAccountId);
+                    break;
+                case 7:
+                    scanner.close();
+                    System.out.println("Saindo...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (opcao != 0);
-
-        scanner.close();
-    }
-
-    public static void depositar(Conta conta, double valor) {
-        conta.depositar(valor);
-    }
-
-    public static void sacar(Conta conta, double valor) {
-        conta.sacar(valor);
-    }
-
-    public static void transferir(Conta origem, Conta destino, double valor) {
-        origem.transferir(destino, valor);
-    }
-
-    public static Conta criarNovaConta(Scanner scanner) {
-        System.out.println("Digite o nome do titular da nova conta:");
-        String titular = scanner.next();
-
-        System.out.println("Digite o número da nova conta:");
-        String numero = scanner.next();
-
-        System.out.println("Digite o nome da agência da nova conta:");
-        String agencia = scanner.next();
-
-        System.out.println("Digite o saldo inicial da nova conta:");
-        double saldoInicial = scanner.nextDouble();
-
-        Conta novaConta = new Conta(titular, numero, agencia, saldoInicial);
-        System.out.println("Nova conta criada com sucesso!");
-        return novaConta;
+        }
     }
 }
