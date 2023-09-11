@@ -1,13 +1,14 @@
 import java.util.Scanner;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
+        Cliente cli1 = new PessoaFisica(0, cli1, 0, null, null);
         Banco banco = new Banco();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             System.out.println("|||||||||||||||||||||||||||||||");
-            System.out.println("||   Escolha uma opça1o:      ||");
+            System.out.println("||   Escolha uma opçao:      ||");
             System.out.println("||   1. Criar Cliente        ||");
             System.out.println("||   2. Criar Conta          ||");
             System.out.println("||   3. Depositar            ||");
@@ -16,7 +17,8 @@ public class App {
             System.out.println("||   6. Mostrar Saldo        ||");
             System.out.println("||   7. Sair                 ||");
             System.out.println("|||||||||||||||||||||||||||||||");
-
+            
+            System.out.println("Selecione a opção ");
             int choice = scanner.nextInt();
 
             switch (choice) {
